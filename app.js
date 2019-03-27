@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const cacheMiddleware = require('./Middleware/Cache');
 const Database = require('./db');
 const Router = require('./Router');
 
@@ -20,6 +21,7 @@ class App
     run() {
         this.getDb();
         this.getRoutes();
+        this.getCaching();
         this.addRoutes();
         console.log('App is running.');
     }
@@ -34,6 +36,13 @@ class App
     }
     
     /**
+     * Get the caching middleware
+     */
+    getCaching() {
+        this.caching = cacheMiddleware;
+    }
+    
+    /**
      * Get Routes 
      */
     getRoutes() {
@@ -45,7 +54,7 @@ class App
      * Add Routes to App with Middleware
      */
     addRoutes() {
-        this.app.use('/api', this.router.router);
+        this.app.use('/api', this.caching(process.env.CACHE_TIMEOUT), this.router.router);
         this.app.listen(process.env.PORT);
     }
 }
