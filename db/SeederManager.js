@@ -60,7 +60,7 @@ class SeederManager
      * Creates the Seeder record
      */
     __createRecord() {
-        return SeederModel({
+        return Seeder({
             name: this.name,
             hasRun: false
         }).save();
