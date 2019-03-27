@@ -40,15 +40,6 @@ class Router
     }
     
     /**
-     * Get route name for Controller
-     */
-    __getRouteName(controllerName) {
-        return controllerName
-            .slice(0, controllerName.indexOf('Controller.js'))
-            .toLowerCase();
-    }
-    
-    /**
      * Add the controller to the Router
      */
     __addController(controllerName) {

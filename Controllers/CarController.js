@@ -8,12 +8,12 @@ class CarController extends AbstractController
             .get(this.listAction)
             .post(this.createAction);
         this.router.route(`${this.route}/:id`)
-            .get(this.getCarAction)
-            .put(this.updateCarAction)
-            .delete(this.deleteCarAction);
+            .get(this.detailAction)
+            .put(this.updateAction)
+            .delete(this.deleteAction);
     }
     
-    getRoute() {
+    __getRoute() {
         return '/car';
     }
     
@@ -52,7 +52,7 @@ class CarController extends AbstractController
     /**
      * Get a Car
      */
-    getCarAction(req, res) {
+    detailAction(req, res) {
         Car.findById(req.params.id, (err, car) => {
             if (err) {
                 console.error(err);
@@ -65,7 +65,7 @@ class CarController extends AbstractController
     /**
      * Update a Car
      */
-    updateCarAction(req, res) {
+    updateAction(req, res) {
         Car.findById(req.params.id, (err, car) => {
             if (err) {
                 res.send(err);
@@ -88,7 +88,7 @@ class CarController extends AbstractController
     /**
      * Delete a Car
      */
-    deleteCarAction(req, res) {
+    deleteAction(req, res) {
         Car.findById(req.params.id, (err, car) => {
             if (err) {
                 res.send(err);

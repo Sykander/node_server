@@ -1,10 +1,13 @@
 const express = require('express');
 
+/**
+ * This class serves as a skeleton for how controller should work
+ */
 class AbstractController
 {
     constructor() {
         this.router = this.__getRouter();
-        this.route = this.getRoute();
+        this.route = this.__getRoute();
         this.__initRoutes();
     }
     
@@ -18,7 +21,7 @@ class AbstractController
     /**
      * Get the Controller Route
      */
-    getRoute() {
+    __getRoute() {
         return '/';
     }
     

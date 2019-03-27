@@ -8,12 +8,12 @@ class UserController extends AbstractController
             .get(this.listAction)
             .post(this.createAction);
         this.router.route(`${this.route}/:id`)
-            .get(this.getUserAction)
-            .put(this.updateUserAction)
-            .delete(this.deleteUserAction);
+            .get(this.detailAction)
+            .put(this.updateAction)
+            .delete(this.deleteAction);
     }
     
-    getRoute() {
+    __getRoute() {
         return '/user';
     }
     
@@ -51,7 +51,7 @@ class UserController extends AbstractController
     /**
      * Get a User
      */
-    getUserAction(req, res) {
+    detailAction(req, res) {
         User.findById(req.params.id, (err, user) => {
             if (err) {
                 console.error(err);
@@ -64,7 +64,7 @@ class UserController extends AbstractController
     /**
      * Update a User
      */
-    updateUserAction(req, res) {
+    updateAction(req, res) {
         User.findById(req.params.id, (err, user) => {
             if (err) {
                 res.send(err);
@@ -87,7 +87,7 @@ class UserController extends AbstractController
     /**
      * Delete a User
      */
-    deleteUserAction(req, res) {
+    deleteAction(req, res) {
         User.findById(req.params.id, (err, user) => {
             if (err) {
                 res.send(err);
