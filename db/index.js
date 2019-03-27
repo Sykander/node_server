@@ -9,7 +9,19 @@ class Database
 {
     constructor() {
         this.uri = this.__constructUri();
+    }
+    
+    /**
+     * Connect to the DB
+     */
+    connect() {
         this.db = this.__constructConnection();
+    }
+    
+    /**
+     * Seed the DB
+     */
+    seed() {
         this.__runSeeders();
     }
     
@@ -55,4 +67,4 @@ class Database
     }
 }
 
-module.exports = new Database();
+module.exports = Database;

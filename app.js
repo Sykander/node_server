@@ -3,7 +3,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 // DB init
-const db = require('./db');
+const Database = require('./db');
+const db = new Database();
+db.connect();
+db.seed();
 
 // App init
 const app = express();
@@ -13,8 +16,10 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // Get Routes
-const Route = require('./Routes');
-const router = express.Router();
-new Route(router);
-app.use('/api', router);
+const Router = require('./Router');
+const router = new Router();
+router.useControllers();
+
+// Add Routes
+app.use('/api', router.router);
 app.listen(process.env.PORT || 8080);
