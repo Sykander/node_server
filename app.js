@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -51,5 +50,4 @@ class App
     }
 }
 
-const app = new App();
-app.run();
+module.exports = App;

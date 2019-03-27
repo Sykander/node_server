@@ -17,5 +17,5 @@ npm i
 ```
 * Run the following command to start the program
 ```
-node app.js
+node index.js
 ```
