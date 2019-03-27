@@ -20,6 +20,9 @@ const Router = require('./Router');
 const router = new Router();
 router.useControllers();
 
+// Get Middleware
+const cacheMiddleware = require('./Middleware/Cache');
+
 // Add Routes
-app.use('/api', router.router);
+app.use('/api', cacheMiddleware(process.env.CACHE_TIMEOUT), router.router);
 app.listen(process.env.PORT || 8080);
