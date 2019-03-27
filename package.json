@@ -1,0 +1,18 @@
+{
+    "name": "node_server",
+    "version": "0.1.0",
+    "description": "A Node API server.",
+    "main": "app.js",
+    "private": true,
+    "dependencies": {
+        "dotenv": "7.0.0",
+        "express": "4.16.4",
+        "memory-cache": "0.2.0",
+        "mongoose": "5.4.20",
+        "require-context": "1.1.0"
+    },
+    "engines": {
+        "node": ">= 6.0.0",
+        "npm": ">= 3.0.0"
+    }
+}
