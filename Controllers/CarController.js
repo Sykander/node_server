@@ -3,6 +3,9 @@ const AbstractController = require('./AbstractController');
 
 class CarController extends AbstractController
 {    
+    /** PROTECTED
+     * Initialise Routes
+     */
     __initRoutes() {
         this.router.route(this.route)
             .get(this.listAction)
@@ -13,11 +16,14 @@ class CarController extends AbstractController
             .delete(this.deleteAction);
     }
     
+    /** PROTECTED
+     * Get the Controller Route
+     */
     __getRoute() {
-        return '/car';
+        return '/cars';
     }
     
-    /**
+    /** PUBLIC
      * List all Cars
      */
     listAction(req, res) {
@@ -30,7 +36,7 @@ class CarController extends AbstractController
         });
     }
     
-    /**
+    /** PUBLIC
      * Create new Car
      */
     createAction(req, res) {
@@ -49,7 +55,7 @@ class CarController extends AbstractController
         });
     }
     
-    /**
+    /** PUBLIC
      * Get a Car
      */
     detailAction(req, res) {
@@ -62,7 +68,7 @@ class CarController extends AbstractController
         })
     }
     
-    /**
+    /** PUBLIC
      * Update a Car
      */
     updateAction(req, res) {
@@ -85,7 +91,7 @@ class CarController extends AbstractController
         });
     }
     
-    /**
+    /** PUBLIC
      * Delete a Car
      */
     deleteAction(req, res) {

@@ -8,27 +8,27 @@ const SeederManager = require('./SeederManager');
 class Database
 {
     constructor() {
-        this.uri = this.__constructUri();
+        this.uri = this.__getUri();
     }
     
-    /**
+    /** PUBLIC
      * Connect to the DB
      */
     connect() {
-        this.db = this.__constructConnection();
+        this.db = this.__getConnection();
     }
     
-    /**
+    /** PUBLIC
      * Seed the DB
      */
     seed() {
         this.__runSeeders();
     }
     
-    /**
-     * Construct URI to connect to the DB
+    /** PROTECTED
+     * Get URI to connect to the DB
      */
-    __constructUri() {
+    __getUri() {
         let uri = 'mongodb://';
         if (process.env.DB_USER) {
             uri += `${process.env.DB_USER}:${process.env.DB_PASS}@`;
@@ -37,10 +37,10 @@ class Database
         return uri;
     }
     
-    /**
-     * Construct a connection to the DB
+    /** PROTECTED
+     * Get a connection to the DB
      */
-    __constructConnection() {
+    __getConnection() {
         if (!this.uri) {
             console.error('Cannot connect to DB without URI.');
             return;
@@ -51,7 +51,7 @@ class Database
         return mongoose.connection;
     }
     
-    /**
+    /** PROTECTED
      * Run any Seeders which haven't been run yet
      */
     __runSeeders() {

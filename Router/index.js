@@ -7,10 +7,17 @@ const reqCon = require('require-context');
 class Router
 {
     constructor() {
-        this.router = express.Router();
+        this.router = this.__getRouter();
+    }
+    
+    /** PRIVATE
+     * Get a new Router Object
+     */
+    __getRouter() {
+        return new express.Router();
     }
   
-    /**
+    /** PUBLIC
      * Gets all Controllers and adds them to the Router
      */
     useControllers() {
@@ -18,14 +25,14 @@ class Router
         this.__addControllers();
     }
     
-    /**
+    /** PROTECTED
      * Gets all Controllers
      */
     __getControllers() {
         this.controllers = reqCon('../../Controllers', false, /\.js$/);
     }
     
-    /**
+    /** PROTECTED
      * Adds the Controllers to the Router
      */
     __addControllers() {
@@ -39,7 +46,7 @@ class Router
         });
     }
     
-    /**
+    /** PROTECTED
      * Add the controller to the Router
      */
     __addController(controllerName) {

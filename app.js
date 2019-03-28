@@ -15,47 +15,70 @@ class App
         this.app.use(bodyParser.json());
     }
     
-    /**
+    /** PUBLIC
      * Run the App
      */
     run() {
-        this.getDb();
-        this.getRoutes();
-        this.getCaching();
-        this.addRoutes();
-        console.log('App is running.');
+        this.__getDb();
+        this.__getRoutes();
+        this.__getCaching();
+        this.__addRoutes();
+        this.__listenOnPort();
     }
     
-    /**
+    /** PUBLIC
+     * Report on the current status
+     */
+    report() {
+        if (!this.listener) {
+            console.log('App isn\'t listening on any port.');
+            return;
+        }
+
+        console.log(`App is listening on ${this.listener.address().port}.`);
+    }
+    
+    /** PROTECTED
      * Get Database connection and seed
      */
-    getDb() {
+    __getDb() {
         this.db = new Database();
         this.db.connect();
         this.db.seed();
     }
     
-    /**
+    /** PROTECTED
      * Get the caching middleware
      */
-    getCaching() {
+    __getCaching() {
         this.caching = cacheMiddleware;
     }
     
-    /**
+    /** PROTECTED
      * Get Routes 
      */
-    getRoutes() {
+    __getRoutes() {
         this.router = new Router();
         this.router.useControllers();
     }
     
-    /**
+    /** PROTECTED
      * Add Routes to App with Middleware
      */
-    addRoutes() {
+    __addRoutes() {
         this.app.use('/api', this.caching(process.env.CACHE_TIMEOUT), this.router.router);
-        this.app.listen(process.env.PORT);
+    }
+    
+    /** PROTECTED
+     * Get App to listen on PORT
+     */
+    __listenOnPort() {
+        if (!process.env.PORT) {
+            console.error('No Port specified to listen on.');
+            return;
+        }
+      
+        this.listener = this.app.listen(process.env.PORT);
     }
 }
 

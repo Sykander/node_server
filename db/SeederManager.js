@@ -5,14 +5,12 @@ const Seeder = require('../Models/Seeder');
  */
 class SeederManager
 {
-    /**
-     * Synchronous Constructor
-     */
     constructor(name, method) {
         if (!name) {
             console.error('Invalid Seeder name.');
             return;
         }
+        
         this.name = name;
         
         if (!method || typeof method !== 'function') {
@@ -22,13 +20,13 @@ class SeederManager
         
         this.run = method;
         
-        this.__constructor(name, method);
+        this.__constructor();
     }
     
-    /**
+    /** PROTECTED
      * Asynchronous Constructor
      */
-    async __constructor(name, method) {
+    async __constructor() {
         this.record = await this.__getRecord();
         
         if (!this.record) {
@@ -40,7 +38,7 @@ class SeederManager
         }
     }
     
-    /**
+    /** PROTECTED
      * Gets the Seeder record
      */
     __getRecord() {
@@ -56,7 +54,7 @@ class SeederManager
         );
     }
     
-    /**
+    /** PROTECTED
      * Creates the Seeder record
      */
     __createRecord() {
@@ -66,7 +64,7 @@ class SeederManager
         }).save();
     }
     
-    /**
+    /** PROTECTED
      * Updates the Seeder record
      */
     __updateRecord(update) {
@@ -84,8 +82,8 @@ class SeederManager
         );
     }
     
-    /**
-     * Handler for Run method
+    /** PROTECTED
+     * Handler for run
      */
     __run() {
         return new Promise((resolve, reject) => {

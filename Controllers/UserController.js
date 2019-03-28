@@ -3,6 +3,9 @@ const AbstractController = require('./AbstractController');
 
 class UserController extends AbstractController
 {    
+    /** PROTECTED
+     * Initialise Routes
+     */
     __initRoutes() {
         this.router.route(this.route)
             .get(this.listAction)
@@ -13,11 +16,14 @@ class UserController extends AbstractController
             .delete(this.deleteAction);
     }
     
+    /** PROTECTED
+     * Get the Controller Route
+     */
     __getRoute() {
-        return '/user';
+        return '/users';
     }
     
-    /**
+    /** PUBLIC
      * List all Users
      */
     listAction(req, res) {
@@ -30,7 +36,7 @@ class UserController extends AbstractController
         });
     }
     
-    /**
+    /** PUBLIC
      * Create new User
      */
     createAction(req, res) {
@@ -48,7 +54,7 @@ class UserController extends AbstractController
         });
     }
     
-    /**
+    /** PUBLIC
      * Get a User
      */
     detailAction(req, res) {
@@ -61,7 +67,7 @@ class UserController extends AbstractController
         })
     }
     
-    /**
+    /** PUBLIC
      * Update a User
      */
     updateAction(req, res) {
@@ -84,7 +90,7 @@ class UserController extends AbstractController
         });
     }
     
-    /**
+    /** PUBLIC
      * Delete a User
      */
     deleteAction(req, res) {
