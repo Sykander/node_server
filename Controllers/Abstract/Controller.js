@@ -3,7 +3,7 @@ const express = require('express');
 /**
  * This class serves as a skeleton for how controller should work
  */
-class AbstractController
+class Controller
 {
     /** PROTECTED
      * Constructor
@@ -34,4 +34,4 @@ class AbstractController
     __initRoutes() {}
 }
 
-module.exports = AbstractController;
+module.exports = Controller;

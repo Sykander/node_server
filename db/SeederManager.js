@@ -5,7 +5,7 @@ const Seeder = require('../Models/Seeder');
  */
 class SeederManager
 {
-    constructor(name, method) {
+    constructor(name, upgrade) {
         if (!name) {
             console.error('Invalid Seeder name.');
             return;
@@ -13,12 +13,12 @@ class SeederManager
         
         this.name = name;
         
-        if (!method || typeof method !== 'function') {
-            console.error('Invalid Seeder method.');
+        if (!upgrade || typeof upgrade !== 'function') {
+            console.error('Invalid Seeder upgrade.');
             return;
         }
         
-        this.run = method;
+        this.upgrade = upgrade;
         
         this.__constructor();
     }
@@ -34,7 +34,7 @@ class SeederManager
         }
         
         if (!this.record.hasRun) {
-            this.__run();
+            this.__upgrade();
         }
     }
     
@@ -83,12 +83,12 @@ class SeederManager
     }
     
     /** PROTECTED
-     * Handler for run
+     * Handler for upgrade
      */
-    __run() {
+    __upgrade() {
         return new Promise((resolve, reject) => {
-            if (this.run && typeof this.run === 'function') {
-                this.run();
+            if (this.upgrade && typeof this.upgrade === 'function') {
+                this.upgrade();
                 resolve();
             } else {
                 console.error('No Seeder method to run.');

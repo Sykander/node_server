@@ -1,21 +1,8 @@
 const User = require('../Models/User');
-const AbstractController = require('./AbstractController');
+const RestfulController = require('./Abstract/RestfulController');
 
-class UserController extends AbstractController
+class UserController extends RestfulController
 {    
-    /** PROTECTED
-     * Initialise Routes
-     */
-    __initRoutes() {
-        this.router.route(this.route)
-            .get(this.listAction)
-            .post(this.createAction);
-        this.router.route(`${this.route}/:id`)
-            .get(this.detailAction)
-            .put(this.updateAction)
-            .delete(this.deleteAction);
-    }
-    
     /** PROTECTED
      * Get the Controller Route
      */
@@ -29,10 +16,10 @@ class UserController extends AbstractController
     listAction(req, res) {
         User.find((err, users) => {
             if (err) {
-                res.send(err);
+                res.status(400).send(err);
             }
             
-            res.json(users);
+            res.status(200).json(users);
         });
     }
     
@@ -47,10 +34,10 @@ class UserController extends AbstractController
         
         user.save(error => {
             if (error) {
-                res.send(error);
+                res.status(400).send(error);
             }
             
-            res.json({message: 'User Created.'});
+            res.status(200).json({message: 'User Created.'});
         });
     }
     
@@ -63,7 +50,7 @@ class UserController extends AbstractController
                 console.error(err);
             }
             
-            res.json(user);
+            res.status(200).json(user);
         })
     }
     
@@ -73,7 +60,7 @@ class UserController extends AbstractController
     updateAction(req, res) {
         User.findById(req.params.id, (err, user) => {
             if (err) {
-                res.send(err);
+                res.status(400).send(err);
             }
             
             user.firstName = req.body.firstName || user.firstName;
@@ -82,10 +69,10 @@ class UserController extends AbstractController
             
             user.save(err => {
                 if (err) {
-                    res.send(err);
+                    res.status(400).send(err);
                 }
                 
-                res.json({message: 'User updated.'});
+                res.status(200).json({message: 'User updated.'});
             });
         });
     }
@@ -96,15 +83,15 @@ class UserController extends AbstractController
     deleteAction(req, res) {
         User.findById(req.params.id, (err, user) => {
             if (err) {
-                res.send(err);
+                res.status(400).send(err);
             }
             
             user.delete(err => {
                 if (err) {
-                    res.send(err);
+                    res.status(400).send(err);
                 }
                 
-                res.json({message: 'User deleted.'});
+                res.status(200).json({message: 'User deleted.'});
             });
         });
     }

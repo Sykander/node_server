@@ -1,21 +1,8 @@
 const Car = require('../Models/Car');
-const AbstractController = require('./AbstractController');
+const RestfulController = require('./Abstract/RestfulController');
 
-class CarController extends AbstractController
+class CarController extends RestfulController
 {    
-    /** PROTECTED
-     * Initialise Routes
-     */
-    __initRoutes() {
-        this.router.route(this.route)
-            .get(this.listAction)
-            .post(this.createAction);
-        this.router.route(`${this.route}/:id`)
-            .get(this.detailAction)
-            .put(this.updateAction)
-            .delete(this.deleteAction);
-    }
-    
     /** PROTECTED
      * Get the Controller Route
      */
@@ -29,10 +16,10 @@ class CarController extends AbstractController
     listAction(req, res) {
         Car.find((err, cars) => {
             if (err) {
-                res.send(err);
+                res.status(400).send(err);
             }
             
-            res.json(cars);
+            res.status(200).json(cars);
         });
     }
     
@@ -48,10 +35,10 @@ class CarController extends AbstractController
         
         car.save(error => {
             if (error) {
-                res.send(error);
+                res.status(400).send(error);
             }
             
-            res.json({message: 'Car Created.'});
+            res.status(200).json({message: 'Car Created.'});
         });
     }
     
@@ -64,7 +51,7 @@ class CarController extends AbstractController
                 console.error(err);
             }
             
-            res.json(car);
+            res.status(200).json(car);
         })
     }
     
@@ -74,7 +61,7 @@ class CarController extends AbstractController
     updateAction(req, res) {
         Car.findById(req.params.id, (err, car) => {
             if (err) {
-                res.send(err);
+                res.status(400).send(err);
             }
             
             car.brand = req.body.brand || car.brand;
@@ -83,10 +70,10 @@ class CarController extends AbstractController
             
             car.save(err => {
                 if (err) {
-                    res.send(err);
+                    res.status(400).send(err);
                 }
                 
-                res.json({message: 'Car updated.'});
+                res.status(200).json({message: 'Car updated.'});
             });
         });
     }
@@ -97,15 +84,15 @@ class CarController extends AbstractController
     deleteAction(req, res) {
         Car.findById(req.params.id, (err, car) => {
             if (err) {
-                res.send(err);
+                res.status(400).send(err);
             }
             
             car.delete(err => {
                 if (err) {
-                    res.send(err);
+                    res.status(400).send(err);
                 }
                 
-                res.json({message: 'Car deleted.'});
+                res.status(200).json({message: 'Car deleted.'});
             });
         });
     }
