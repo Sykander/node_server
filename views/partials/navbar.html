@@ -1,0 +1,7 @@
+<nav class="navbar navbar-light bg-light">
+    <a href="/" class="btn btn-outline-dark mb-2">Home</a>
+    {{#signed_in}}
+    <a href="/messenger" class="btn btn-outline-dark mb-2">Messenger</a>
+    {{/signed_in}}
+    {{> partials/signIn }}
+</nav>

@@ -52,7 +52,7 @@ class Router
     __addController(controllerName) {
         const Controller = this.controllers(controllerName);
         const controller = new Controller();
-        this.router.use('/', controller.router);
+        this.router.use(controller.router);
     }
 }
 

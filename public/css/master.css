@@ -1,0 +1,7 @@
+body > div.main {
+    min-height: 100vh;
+}
+
+body > footer.page-footer {
+    margin-top: 2vh;
+}

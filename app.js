@@ -1,5 +1,7 @@
 const express = require('express');
+const session = require('express-session');
 const bodyParser = require('body-parser');
+const mustacheExpress = require('mustache-express');
 
 const cacheMiddleware = require('./Middleware/Cache');
 const Database = require('./db');
@@ -20,6 +22,8 @@ class App
      */
     run() {
         this.__getDb();
+        this.__getViews();
+        this.__getSession();
         this.__getRoutes();
         this.__getCaching();
         this.__addRoutes();
@@ -38,6 +42,33 @@ class App
         console.log(`App is listening on ${this.listener.address().port}.`);
     }
     
+    /** PROTECTED
+     * Get Views and configure
+     */
+    __getViews() {
+        this.app.engine('html', mustacheExpress());
+        this.app.set('view engine', 'html');
+        this.app.set('views', __dirname + '/views');
+        this.app.use(express.static(__dirname + '/public'));
+    }
+    
+    /** PROTECTED
+     * Get the Session
+     */
+    __getSession() {
+        this.session = session({
+            name: 'session_id',
+            secret: process.env.SESSION_SECRET || 'secret-1234',
+            cookie: {
+                maxAge: 60000,
+                httpOnly: false,
+                domain: '127.0.0.1:8080'
+            },
+            resave: false,
+            saveUninitialized: false 
+        });
+    }
+
     /** PROTECTED
      * Get Database connection and seed
      */
@@ -66,7 +97,7 @@ class App
      * Add Routes to App with Middleware
      */
     __addRoutes() {
-        this.app.use('/api', this.caching(process.env.CACHE_TIMEOUT), this.router.router);
+        this.app.use(this.caching(process.env.CACHE_TIMEOUT), this.session, this.router.router);
     }
     
     /** PROTECTED

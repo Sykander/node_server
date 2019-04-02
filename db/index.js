@@ -46,6 +46,7 @@ class Database
             return;
         }
       
+        mongoose.set('useCreateIndex', true);
         mongoose.connect(this.uri, { useNewUrlParser: true });
         mongoose.connection.on('error', err => console.error(err));
         return mongoose.connection;

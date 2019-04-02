@@ -5,10 +5,18 @@
     "main": "app.js",
     "private": true,
     "dependencies": {
+        "bcrypt": "^3.0.5",
+        "connect-mongo": "^2.0.3",
+        "crypto": "^1.0.1",
         "dotenv": "7.0.0",
         "express": "4.16.4",
+        "express-session": "^1.15.6",
+        "jsonwebtoken": "^8.5.1",
         "memory-cache": "0.2.0",
         "mongoose": "5.4.20",
+        "mustache-express": "^1.2.8",
+        "passport": "^0.4.0",
+        "passport-local": "^1.0.0",
         "require-context": "1.1.0"
     },
     "engines": {
